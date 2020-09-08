@@ -1,21 +1,26 @@
 from tkinter import *
-from Scrabble_v2 import *
+from Scrabble_GUI import *
 
 root = Tk()
+def DealNewHand():
+    Button_repeat = Button(root, text = "Replay the last hand", command=ReplayGame )
+    Button_repeat.pack()
+    Play = Toplevel()
+    hand = dealHand(HAND_SIZE)
+    hand_copy = hand.copy() 
+    Button_play = Button(Play, text="Play against the Computer", command=lambda: compPlayHand(hand,wordList, HAND_SIZE))
+    Button_play.pack()  
+    Button_uplay = Button(Play, text="Play against Yourself", command=lambda: playHand(hand,wordList, HAND_SIZE))
+    Button_uplay.pack()  
 
-e = Entry(root, width=50)
-e.pack()
+def ReplayGame():
+    pass
 
-def myClick():
-    myLabel2 = Label(root, text=e.get())
-    myLabel2.pack()
-
-
-myButton = Button(root, text="Enter Your Name", command=myClick, bg="black", fg="white")
-myButton.pack()
-# Creating a label widget
-myLabel = Label(root, text="Hello World!")
-#shoving it onto the screen
-myLabel.pack()
+wordList = loadWords()
+Button_exit = Button(root, text="Exit", command=root.quit)
+Button_exit.pack()
+Button_Deal = Button(root, text="Deal a new hand", command=DealNewHand)
+Button_Deal.pack()
+print(hand)
 
 root.mainloop()
